@@ -1,6 +1,6 @@
 class Player:
     def __init__(self,name,number):
-        self.__name=name
+        self.name=name
         self.__number=number
         self.__coins=2
         self.cards=[]
@@ -9,6 +9,10 @@ class Player:
     @property
     def name(self):
         return self.__name
+    
+    @name.setter
+    def name(self,name):
+        self.__name=name
     
     @property
     def coins(self):
@@ -28,9 +32,5 @@ class Player:
             self.__status=stat
 
 
-p=Player("camila",1)
-print(p.status)
-p.status="Challenge"
-print(p.status)
-p.cards.append("hola")
+
 

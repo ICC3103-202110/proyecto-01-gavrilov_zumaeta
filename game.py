@@ -1,5 +1,6 @@
 from player import Player
 from deck_of_cards import Deck_of_cards 
+from console import Console
 
 class Game:
     MAX_NUMBER_PLAYERS=4
@@ -14,12 +15,15 @@ class Game:
         cls.__set_deck(cls)
         for player in cls.__players:
             cls.__table_deck.assign_cards_player(player,2,cls.__table_deck.deck)
-            for carta in player.cards:
-                print(carta)
+        cls.__player_play()
+    
+    @classmethod
+    def __player_play(cls):
+        Console.clear()
+        action=Console.player_menu(cls.__current_player.name)
+
+
         
-        print("\n")
-        for elemento in cls.__table_deck.deck:
-            print (elemento)
 
 
     @classmethod
@@ -32,6 +36,7 @@ class Game:
         for i in list(range(number_players)):
             name=input("Player {} enter your name: ".format(i+1))
             cls.__players.append(Player(name,i+1))
+        cls.__current_player=cls.__players[0]
         
     def __set_deck(cls):
         cls.__table_deck=Deck_of_cards()
