@@ -1,3 +1,5 @@
+from cards import Cards
+
 class Player:
     def __init__(self,name,number):
         self.name=name
@@ -28,9 +30,16 @@ class Player:
     
     @status.setter
     def status(self,stat):
-        if stat in ["Playing","Challenge","Fight_back","pass"]:
-            self.__status=stat
+        self.__status=stat
 
-
-
+    def see_cards(self):
+        if self.status=="Playing":
+            self.cards[0].hidden=False
+            self.cards[1].hidden=False
+            
+        print("Your cards are: {} and {}".format(self.cards[0],self.cards[1]))
+        
+        if self.status=="Playing":
+            self.cards[0].hidden=True
+            self.cards[1].hidden=True
 

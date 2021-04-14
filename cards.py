@@ -4,5 +4,17 @@ class Cards:
         self.__hidden=True
         self.__out_of_game=False
 
+    @property 
+    def hidden(self):
+        return self.__hidden
+    
+    @hidden.setter
+    def hidden(self,value):
+        self.__hidden=value
+
     def __str__(self):
-        return self.__influence
+        if self.__hidden==False:
+            return self.__influence
+        if self.__hidden==True:
+            return "[X]"
+
