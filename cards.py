@@ -17,4 +17,3 @@ class Cards:
             return self.__influence
         if self.__hidden==True:
             return "[X]"
-

@@ -18,3 +18,7 @@ class Console:
     def clear():
         os.system('cls||clear')
 
+    @staticmethod
+    def show_last_action(name,action):
+        print("Player {} has chosen the action {}".format(name,action))
+

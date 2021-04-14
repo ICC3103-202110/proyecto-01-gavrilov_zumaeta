@@ -29,7 +29,15 @@ class Game:
         choice=Console.player_menu(cls.__current_player.name)
         action=Action()
         action.action_status=cls.__list_of_actions[choice-1]
-        print(action.action_status)
+        input("Press any key and pass the computer to the other players")
+        Console.clear()
+        Console.show_last_action(cls.__current_player.name,action.action_status)
+        if choice==1:
+            action.income(cls.__current_player)
+        
+
+
+
 
 
     @classmethod
