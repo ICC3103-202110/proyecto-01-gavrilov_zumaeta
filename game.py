@@ -38,8 +38,21 @@ class Game:
         Console.show_last_action(cls.__current_player.name,action.action_status)
         if choice==1:
             action.income(cls.__current_player)
+        if choice==2:
+            action.foreign_help(cls.__current_player)
         if choice==3:
             action.hit(cls.__current_player,cls.__players)
+        if choice==4:
+            action.taxes(cls.__current_player)
+        if choice==5:
+            action.murder(cls.__current_player,cls.__players)
+        if choice==6:
+            action.extortion(cls.__current_player,cls.__players)
+        if choice==7:
+            action.change(cls.__current_player,cls.__table_deck.deck)
+
+        cls.__current_player.status=None
+        input("End of turn press any key to continue")
         
 
     @classmethod
