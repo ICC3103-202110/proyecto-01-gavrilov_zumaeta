@@ -19,6 +19,10 @@ class Game:
             cls.__table_deck.assign_cards_player(player,2,cls.__table_deck.deck)
         
         cls.__player_play()
+        cls.__current_player=cls.__players[1]
+        cls.__player_play()
+
+
     
     @classmethod
     def __player_play(cls):
@@ -34,11 +38,9 @@ class Game:
         Console.show_last_action(cls.__current_player.name,action.action_status)
         if choice==1:
             action.income(cls.__current_player)
+        if choice==3:
+            action.hit(cls.__current_player,cls.__players)
         
-
-
-
-
 
     @classmethod
     def __see_coins_and_cards(cls):

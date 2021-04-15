@@ -34,12 +34,25 @@ class Player:
 
     def see_cards(self):
         if self.status=="Playing":
-            self.cards[0].hidden=False
-            self.cards[1].hidden=False
-            
-        print("Your cards are: {} and {}".format(self.cards[0],self.cards[1]))
+            for i in range(2):
+                self.cards[i].hidden=False
+
+        print("{} your cards are: {} and {}".format(self.name,self.cards[0],self.cards[1]))
         
         if self.status=="Playing":
-            self.cards[0].hidden=True
-            self.cards[1].hidden=True
+            for i in range(2):
+                self.cards[i].hidden=True
+    
+    def resign_card(self):
+        print("{} you ought to resign a card".format(self.__name))
+        self.status="Playing"
+        self.see_cards()
+        card_resigned=int(input("press 1 to resign the first one, press 2 to resign the second one: "))
+        self.cards[card_resigned-1].out_of_game=True
+        print(self.cards[card_resigned-1].out_of_game)
+
+
+    def __str__(self):
+        return self.__name
+
 
