@@ -34,7 +34,7 @@ class Player:
         self.__status=stat
 
     def see_cards(self):
-        if self.status=="Playing":
+        if self.status=="Playing" or self.status=="Challenging":
             for i in range(2):
                 if self.cards[i].out_of_game==False:
                     self.cards[i].hidden=False
@@ -71,7 +71,6 @@ class Player:
             return 0
         return 1
         
-
 
 
     def __str__(self):

@@ -2,6 +2,7 @@ from player import Player
 from deck_of_cards import Deck_of_cards 
 from console import Console
 from action import Action
+from counterattack import Counterattack
 from random import shuffle
 
 class Game:
@@ -19,6 +20,17 @@ class Game:
         cls.__set_deck()
         for player in cls.__players:
             cls.__table_deck.assign_cards_player(player,2,cls.__table_deck.deck)
+
+        #we let everybody see their cards by turns
+        
+        for player in cls.__players:
+            player.status="Playing"
+            print("pass computer to {}".format(player))
+            input("{} press any key to see your cards".format(player))
+            player.see_cards()
+            input("press any key to continue")
+            Console.clear()
+            player.status=None
         
         cls.__player_play()
         cls.__current_player=cls.__players[1]
@@ -45,6 +57,13 @@ class Game:
         Console.show_last_action(cls.__current_player.name,action.action_status)
         if (choice!=1 and choice!=2 and choice!=3):
             cls.__challenge(cls.__current_player,action)
+        if action.action_succes==True:
+            if (choice==2 or choice==5 or choice==6):
+                result=cls.__counterattack(cls.__current_player,action.action_status)
+                if result!=0:
+                    new_counterattack=Counterattack(result[0],result[1])
+                    new_counterattack.defy_counterattack(cls.__players,cls.__current_player,action)
+
         if (action.action_succes==True):
             print("Now {} gets to complete their action".format(cls.__current_player))
             action.master_of_actions(choice,cls.__current_player,cls.__players,cls.__table_deck.deck)
@@ -92,10 +111,14 @@ class Game:
         win=False
         influence=cls.__dic_of_influences[action.action_status]
         
+        #when winning a challenge your card gets inmediatly replaced wit one on the deck
         for card in player.cards:
             if (card.out_of_game==False):
                 if card.influence==influence:
                     win=True
+                    cls.__table_deck.deck.append(card)
+                    player.cards.remove(card)
+                    cls.__table_deck.assign_cards_player(player,1,cls.__table_deck.deck)
         
         if win==True:
             print("{} you have won the challenge".format(player))
@@ -111,8 +134,31 @@ class Game:
             player.resign_card()
 
         
-
-
+    @classmethod
+    def __counterattack(cls,player,action):
+        counterattacks={"Foreign Help":["Duke"],"Murder":["Countess"], "Extortion":["Captain","Ambassador"]}
+        print("You can counterattack {}'s action if you have influence on: ".format(player))
+        for element in counterattacks[action]:
+            print(element)
+        challengers=[]
+        for other_player in cls.__players:
+            if other_player.status!="Playing":
+                add=input("{} press 1 if you want to counterattack, press any other key otherwise ".format(other_player))
+                if add=="1":
+                    challengers.append(other_player)
+        if len(challengers)==0:
+            print("Nobody counterattacked you")
+            return 0
+        shuffle(challengers)
+        challenger=challengers[0]
+        print("{} you have been counterattacked by {}".format(player,challenger))
+        if action=="Extortion":
+            num_influence=int(input("{} select 0 if you have influence on the captain and 1 if you have influence over the Ambassador: ".format(challenger)))
+            influence=counterattacks[action][num_influence]
+        else: 
+            influence=counterattacks[action][0]
+        challenger.status="Challenging"
+        return [challenger,influence]
 
 
 if __name__=="__main__":

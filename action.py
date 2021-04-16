@@ -137,22 +137,25 @@ class Action:
                 new_cards_player.append(temporary_cards[pick])
             picked.append(pick)
         
-        for card in player.cards:
-            if card.out_of_game==False:
-                if card not in new_cards_player:
-                    card.hidden=True
-                    deck.append(card)
-                    player.cards.remove(card)
         
-        for card in new_cards_player:
-            if card not in player.cards:
-                player.cards.append(card)
+        if 3 not in picked:
+            deck.append(player.cards[1])
+            player.cards.pop(1)
+        
+        if 2 not in picked:
+            deck.append(player.cards[0])
+            player.cards.pop(0)
+        
+        for card_2 in new_cards_player:
+            if card_2 not in player.cards:
+                player.cards.append(card_2)
         
         for card_deck in deck:
             card_deck.hidden=True
 
         player.see_cards()
 
+    
 
 
         
