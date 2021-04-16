@@ -11,7 +11,9 @@ class Cards:
     @hidden.setter
     def hidden(self,value):
         self.__hidden=value
-    
+    @property 
+    def influence(self):
+        return self.__influence
 
     @property 
     def out_of_game(self):

@@ -1,4 +1,5 @@
 from cards import Cards
+from console import Console
 
 class Player:
     def __init__(self,name,number):
@@ -56,6 +57,21 @@ class Player:
         card_resigned=int(input("press the number of the card you want to resign: "))
         self.cards[card_resigned-1].out_of_game=True
         self.status=None
+        Console.clear()
+    
+    def money_to_play(self,choice):
+        if (self.__coins==10 and choice !=3):
+            print("Sorry you have 10 coins you ought to make a hit")
+            return 0
+        if (self.__coins<7 and choice ==3):
+            print("Sorry you don´t have enough coins to make a hit")
+            return 0
+        if (self.__coins<3 and choice ==5):
+            print("Sorry you don´t have enough coins to murder")
+            return 0
+        return 1
+        
+
 
 
     def __str__(self):

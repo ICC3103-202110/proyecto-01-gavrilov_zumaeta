@@ -15,13 +15,29 @@ class Action:
 
     @property
     def action_succes(self):
-        return self.__action_status
+        return self.__action_succes
 
     @action_succes.setter
-    def action_succes(self,choice):
-        self.__action_succes=choice
+    def action_succes(self,value):
+        self.__action_succes=value
 
     #public method
+    def master_of_actions(self,choice,player,list_of_players,deck):
+        if choice==1:
+            self.income(player)
+        if choice==2:
+            self.foreign_help(player)
+        if choice==3:
+            self.hit(player,list_of_players)
+        if choice==4:
+            self.taxes(player)
+        if choice==5:
+            self.murder(player,list_of_players)
+        if choice==6:
+            self.extortion(player,list_of_players)
+        if choice==7:
+            self.change(player,deck)
+
     def income(self,player):
         player.coins=1
         print("Player {} now has {} coins".format(player.name,player.coins))
