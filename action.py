@@ -67,6 +67,9 @@ class Action:
         print("Player {} now has {} coins".format(player.name,player.coins))
     
     def murder(self,player,list_of_players):
+        if len(list_of_players)==0:
+            print("Sorry there is no other player")
+            return 0
         player.coins=-3
         choose_person=[]
         counter=0
@@ -77,6 +80,9 @@ class Action:
                 counter+=1
 
         murder_person=int(input("Enter the number of the person's influence you want to murder: "))
+        if len(choose_person[murder_person].cards)==0:
+            print("Sorry this person no longer has cards")
+            return 0
         print("pass the computer to {}".format(choose_person[murder_person].name))
         input("press any key to continue")
         Console.clear()

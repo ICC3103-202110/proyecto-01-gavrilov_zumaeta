@@ -1,5 +1,7 @@
 from random import shuffle
 from console import Console
+
+
 class Counterattack:
     def __init__(self,adversary,character):
         self.__adversary=adversary
@@ -34,7 +36,7 @@ class Counterattack:
         if (action=="Extortion" or action=="Foreign Help"):
             self.block_stealing_help(player)
     
-    def defy_counterattack(self,list_of_players,player,action):
+    def defy_counterattack(self,list_of_players,player,action,table_deck):
         print("Does anybody want to defy this counterattack?")
         challengers=[]
         for other_player in list_of_players:
@@ -55,6 +57,11 @@ class Counterattack:
             if (card.out_of_game==False and card.influence==self.__character):
                 win=True
                 print("{} you have won the challenge and get to complete the counterattack".format(self.adversary))
+                table_deck.deck.append(card)
+                self.__adversary.cards.remove(card)
+                table_deck.assign_cards_player(self.__adversary,1,table_deck.deck)
+                input("{} press any key to see your new card".format(self.__adversary))
+                self.__adversary.see_cards()
                 input("pass computer to {} and press any key to continue".format(challenger))
                 Console.clear()
                 challenger.resign_card()

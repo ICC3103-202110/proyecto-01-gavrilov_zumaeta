@@ -8,11 +8,11 @@ class Console:
         print("{:<20}{:>20}".format(" 2.Foreign Help", " 5.Assassin-Murder"))
         print("{:<20}{:>22}".format(" 3.Hit", "  6.Captain-Extortion"))
         print("{:>42}".format(" 7.Ambassador-Change"))
-        return int(input("\n{} choose the number of the Action you want to make: ".format(name)))
+        return int(input("\nChoose the number of the Action you want to make {}: ".format(name)))
 
     @staticmethod
     def coins_and_cards_display(name,coins,card1,card2):
-        print("{}'s coins: [{}] | {}'s cards: {} {}".format(name,coins,name,card1,card2))
+        print("{} has: {} coins and their cards are {} {}".format(name,coins,card1,card2))
 
     @staticmethod
     def clear():

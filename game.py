@@ -13,6 +13,7 @@ class Game:
     __current_player=None
     __list_of_actions=["Income","Foreign Help","Hit","Taxes","Murder","Extortion","Change"]
     __dic_of_influences={"Taxes":"Duke","Murder":"Assassin","Extortion":"Captain","Change":"Ambassador"}
+    __number_of_players=0
 
     @classmethod
     def play(cls):
@@ -20,32 +21,35 @@ class Game:
         cls.__set_deck()
         for player in cls.__players:
             cls.__table_deck.assign_cards_player(player,2,cls.__table_deck.deck)
+        cls.__number_of_players=len(cls.__players)
+        #logica que reste uno por cada vez que se queden sin cartas y reconozca cuando queda solo un jugador
 
         #we let everybody see their cards by turns
-        print("\nOn this first round every player will get to SEE THEIR CARDS.")
+        
         for player in cls.__players:
             player.status="Playing"
-            print("Pass computer to {}".format(player))
+            print("pass computer to {}".format(player))
             input("{} press any key to see your cards".format(player))
             player.see_cards()
-            input("Press any key to continue")
+            input("press any key to continue")
             Console.clear()
             player.status=None
         
-        print("Now the GAME BEGINS!")
-        cls.__player_play()
-        cls.__current_player=cls.__players[1]
-        cls.__player_play()
+        while len(cls.__players)>1:
+            for player in cls.__players:
+                if (player==cls.__current_player):
+                    continue
+                cls.__current_player=player
+                cls.__player_play()
+                cls.__remove_player()
+        
+        print("{} there ara no more players left, You won!!".format(cls.__players[0]))
 
-
-    
     @classmethod
     def __player_play(cls):
         Console.clear()
         cls.__current_player.status="Playing"
-        print("----------------------------------")
         cls.__see_coins_and_cards()
-        print("----------------------------------")
         cls.__current_player.see_cards()
         flag=0
         while (flag==0):
@@ -60,12 +64,13 @@ class Game:
         Console.show_last_action(cls.__current_player.name,action.action_status)
         if (choice!=1 and choice!=2 and choice!=3):
             cls.__challenge(cls.__current_player,action)
+        cls.__remove_player()
         if action.action_succes==True:
             if (choice==2 or choice==5 or choice==6):
                 result=cls.__counterattack(cls.__current_player,action.action_status)
                 if result!=0:
                     new_counterattack=Counterattack(result[0],result[1])
-                    new_counterattack.defy_counterattack(cls.__players,cls.__current_player,action)
+                    new_counterattack.defy_counterattack(cls.__players,cls.__current_player,action,cls.__table_deck)
 
         if (action.action_succes==True):
             print("Now {} gets to complete their action".format(cls.__current_player))
@@ -85,16 +90,11 @@ class Game:
         number_players=int(input("Please enter number of players: \n"))
         if number_players<cls.MIN_NUMBER_PLAYERS:
             number_players=3
-            print("Min. Nº of Players is 3! Go find some more people.")
         if number_players>cls.MAX_NUMBER_PLAYERS:
             number_players=4
-            print("Max. Nº of Players is 4! Choose who stays.")
         for i in list(range(number_players)):
             name=input("Player {} enter your name: ".format(i+1))
             cls.__players.append(Player(name,i+1))
-        cls.__current_player=cls.__players[0]
-
-        Console.clear()
 
     @classmethod    
     def __set_deck(cls):
@@ -129,7 +129,9 @@ class Game:
         
         if win==True:
             print("{} you have won the challenge".format(player))
-            input("press any key to continue")
+            input("press any key to see your new card")
+            player.see_cards()
+            input("press any key to continue and pass computer to {}".format(challenger))
             Console.clear()
             challenger.resign_card()
             action.action_succes=True
@@ -166,8 +168,16 @@ class Game:
             influence=counterattacks[action][0]
         challenger.status="Challenging"
         return [challenger,influence]
-
-    #def game_log:
+    
+    @classmethod
+    def __remove_player(cls):
+        for player in cls.__players:
+            counter=0
+            for card in player.cards:
+                if card.out_of_game==True:
+                    counter+=1
+            if counter==2:
+                cls.__players.remove(player)
 
 
 if __name__=="__main__":

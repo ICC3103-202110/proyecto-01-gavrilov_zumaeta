@@ -22,8 +22,8 @@ class Deck_of_cards:
 
     def assign_cards_player (self,player,number,deck):
         for j in range(number):
-            player.cards.append(deck[-1])
-            deck.pop()
+            player.cards.append(deck[0])
+            deck.pop(0)
 
     def __str__(self):
         return self.__deck
