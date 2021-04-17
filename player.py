@@ -42,7 +42,7 @@ class Player:
         m=1
         for card in self.cards:
             if card.out_of_game==False:
-                print("{}. {} you have the card {}".format(m,card))
+                print("{}. {}".format(m,card))
             m+=1
         
         if self.status=="Playing":
