@@ -82,8 +82,10 @@ class Game:
         number_players=int(input("Please enter number of players: \n"))
         if number_players<cls.MIN_NUMBER_PLAYERS:
             number_players=3
+            print("Min. Nº of Players is 3! Go find some more people.")
         if number_players>cls.MAX_NUMBER_PLAYERS:
             number_players=4
+            print("Max. Nº of Players is 4! Choose who stays.")
         for i in list(range(number_players)):
             name=input("Player {} enter your name: ".format(i+1))
             cls.__players.append(Player(name,i+1))

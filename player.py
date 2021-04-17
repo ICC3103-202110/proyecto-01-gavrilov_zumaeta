@@ -38,11 +38,11 @@ class Player:
             for i in range(2):
                 if self.cards[i].out_of_game==False:
                     self.cards[i].hidden=False
-        print("Your cards are: ")
+        print("[ This is {}'s turn. ] Your cards are: ".format(self.name))
         m=1
         for card in self.cards:
             if card.out_of_game==False:
-                print("{}. {} you have the card {}".format(m,self.name,card))
+                print("{}. {} you have the card {}".format(m,card))
             m+=1
         
         if self.status=="Playing":
