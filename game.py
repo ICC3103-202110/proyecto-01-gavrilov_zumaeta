@@ -22,16 +22,17 @@ class Game:
             cls.__table_deck.assign_cards_player(player,2,cls.__table_deck.deck)
 
         #we let everybody see their cards by turns
-        
+        print("\nOn this first round every player will get to SEE THEIR CARDS.")
         for player in cls.__players:
             player.status="Playing"
-            print("pass computer to {}".format(player))
+            print("Pass computer to {}".format(player))
             input("{} press any key to see your cards".format(player))
             player.see_cards()
-            input("press any key to continue")
+            input("Press any key to continue")
             Console.clear()
             player.status=None
         
+        print("Now the GAME BEGINS!")
         cls.__player_play()
         cls.__current_player=cls.__players[1]
         cls.__player_play()
@@ -42,7 +43,9 @@ class Game:
     def __player_play(cls):
         Console.clear()
         cls.__current_player.status="Playing"
+        print("----------------------------------")
         cls.__see_coins_and_cards()
+        print("----------------------------------")
         cls.__current_player.see_cards()
         flag=0
         while (flag==0):
@@ -90,6 +93,8 @@ class Game:
             name=input("Player {} enter your name: ".format(i+1))
             cls.__players.append(Player(name,i+1))
         cls.__current_player=cls.__players[0]
+
+        Console.clear()
 
     @classmethod    
     def __set_deck(cls):
@@ -161,6 +166,8 @@ class Game:
             influence=counterattacks[action][0]
         challenger.status="Challenging"
         return [challenger,influence]
+
+    #def game_log:
 
 
 if __name__=="__main__":

@@ -38,7 +38,7 @@ class Player:
             for i in range(2):
                 if self.cards[i].out_of_game==False:
                     self.cards[i].hidden=False
-        print("[ This is {}'s turn. ] Your cards are: ".format(self.name))
+        print("\n[ This is {}'s turn. ] Your cards are: ".format(self.name))
         m=1
         for card in self.cards:
             if card.out_of_game==False:
@@ -61,13 +61,13 @@ class Player:
     
     def money_to_play(self,choice):
         if (self.__coins==10 and choice !=3):
-            print("Sorry you have 10 coins you ought to make a hit")
+            print("YOU HAVE 10 COINS, you must choose Hit.")
             return 0
         if (self.__coins<7 and choice ==3):
-            print("Sorry you don´t have enough coins to make a hit")
+            print("NOT ENOUGH COINS for Hit. Try again.")
             return 0
         if (self.__coins<3 and choice ==5):
-            print("Sorry you don´t have enough coins to murder")
+            print("NOT ENOUGH COINS for murder. Try again.")
             return 0
         return 1
         
