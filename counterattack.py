@@ -30,18 +30,18 @@ class Counterattack:
         return self.__succes
     
     def master_of_counterattack(self,player,adversary,action):
-        print("{} you have been counterattacked by {}".format(player,adversary))
+        print("{} you have been COUNTERATTACKED by {}".format(player,adversary))
         if action=="Murder":
             self.countess(player)
         if (action=="Extortion" or action=="Foreign Help"):
             self.block_stealing_help(player)
     
     def defy_counterattack(self,list_of_players,player,action,table_deck):
-        print("Does anybody want to defy this counterattack?")
+        print("Does anybody want to DEFY this COUNTERATTACK?")
         challengers=[]
         for other_player in list_of_players:
             if other_player.status!="Challenging":
-                add=input("{} press 1 if you want to challenge, press any other key otherwise ".format(other_player))
+                add=input("{} PRESS 1 if you want to CHALLENGE, press any other key otherwise ".format(other_player))
                 if add=="1":
                     challengers.append(other_player)
         if len(challengers)==0:
@@ -51,18 +51,18 @@ class Counterattack:
             return 0
         shuffle(challengers)
         challenger=challengers[0]
-        print("{} you have been challenged by {}".format(self.__adversary,challenger))
+        print("{} you have been CHALLENGED by {}".format(self.__adversary,challenger))
         win=False
         for card in self.adversary.cards:
             if (card.out_of_game==False and card.influence==self.__character):
                 win=True
-                print("{} you have won the challenge and get to complete the counterattack".format(self.adversary))
+                print("{} you have WON the CHALLENGE and get to complete the counterattack".format(self.adversary))
                 table_deck.deck.append(card)
                 self.__adversary.cards.remove(card)
                 table_deck.assign_cards_player(self.__adversary,1,table_deck.deck)
-                input("{} press any key to see your new card".format(self.__adversary))
+                input("{} press ANY KEY to see your new card".format(self.__adversary))
                 self.__adversary.see_cards()
-                input("pass computer to {} and press any key to continue".format(challenger))
+                input("PASS computer to {} AND PRESS ANY KEY to continue".format(challenger))
                 Console.clear()
                 challenger.resign_card()
                 Console.clear()
@@ -70,8 +70,8 @@ class Counterattack:
                 self.master_of_counterattack(player,self.__adversary,action.action_status)
         
         if win==False:
-            print("{} you have lost the challenge".format(self.__adversary))
-            input("pass computer to {} and press any key to continue".format(self.__adversary))
+            print("{} you have LOST the CHALLENGE".format(self.__adversary))
+            input("PASS computer to {} AND PRESS ANY KEY to continue".format(self.__adversary))
             Console.clear()
             self.__adversary.resign_card()
             Console.clear()
@@ -84,10 +84,10 @@ class Counterattack:
         self.__succes=value
     
     def countess(self,player):
-        print("Therefore {} you have lost 3 coins".format(player))
+        print("Therefore {} you have LOST 3 COINS".format(player))
         player.coins=-3
     
     def block_stealing_help(self,player):
-        print("Therefore {} you won't get any coins".format(player))
+        print("Therefore {} you WON'T GET ANY COINS".format(player))
     
 

@@ -49,12 +49,12 @@ class Action:
         for person in (list_of_players):
             if person.status != "Playing":
                 choose_person.append(person)
-                print("You can take a hit on {} by pressing {}".format(person,counter))
+                print("You can take a HIT on {} by pressing {}".format(person,counter))
                 counter+=1
 
-        hit_person=int(input("Enter the number of the person you want to hit: "))
-        print("pass the computer to {}".format(choose_person[hit_person].name))
-        input("press any key to continue")
+        hit_person=int(input("Enter the NUMBER of the person you want to hit: "))
+        print("PASS the computer to {}".format(choose_person[hit_person].name))
+        input("PRESS ANY KEY to continue")
         Console.clear()
         choose_person[hit_person].resign_card()
     
@@ -68,7 +68,7 @@ class Action:
     
     def murder(self,player,list_of_players):
         if len(list_of_players)==0:
-            print("Sorry there is no other player")
+            print("SORRY there is no other player")
             return 0
         player.coins=-3
         choose_person=[]
@@ -76,15 +76,15 @@ class Action:
         for person in (list_of_players):
             if person.status != "Playing":
                 choose_person.append(person)
-                print("You can murder an influence of {} by pressing {}".format(person,counter))
+                print("You can MURDER an INFLUENCE of {} by pressing {}".format(person,counter))
                 counter+=1
 
         murder_person=int(input("Enter the number of the person's influence you want to murder: "))
         if len(choose_person[murder_person].cards)==0:
-            print("Sorry this person no longer has cards")
+            print("SORRY this person no longer has cards")
             return 0
-        print("pass the computer to {}".format(choose_person[murder_person].name))
-        input("press any key to continue")
+        print("PASS the computer to {}".format(choose_person[murder_person].name))
+        input("PRESS ANY KEY to continue")
         Console.clear()
         choose_person[murder_person].resign_card()
         print("Player {} now has {} coins".format(player.name,player.coins))
@@ -95,10 +95,10 @@ class Action:
         for person in (list_of_players):
             if person.status != "Playing":
                 choose_person.append(person)
-                print("You can extort {} by pressing {}".format(person,counter))
+                print("You can EXTORT {} by PRESSING {}".format(person,counter))
                 counter+=1
 
-        extort_person=int(input("Enter the number of the person you want to extort: "))
+        extort_person=int(input("Enter the NUMBER of the PERSON you want to EXTORT: "))
         if choose_person[extort_person].coins>=2:
             choose_person[extort_person].coins=-2
             player.coins=2
@@ -106,7 +106,7 @@ class Action:
             choose_person[extort_person].coins=-1
             player.coins=1
         else:
-            print("Sorry, this person had no coins")
+            print("SORRY, this person had no coins")
         print("Player {} now has {} coins".format(player.name,player.coins))
         print("Player {} now has {} coins".format(choose_person[extort_person].name,choose_person[extort_person].coins))
 
@@ -133,7 +133,7 @@ class Action:
         new_cards_player=[]
         picked=[]
         for i in range(number_of_cards):
-            pick=int(input("Enter number of card you wish to keep: "))
+            pick=int(input("Enter NUMBER of card you wish to keep: "))
             if (pick==0 or pick==1):
                 temporary_cards[pick].hidden=True
                 new_cards_player.append(temporary_cards[pick])

@@ -38,11 +38,11 @@ class Player:
             for i in range(2):
                 if self.cards[i].out_of_game==False:
                     self.cards[i].hidden=False
-        print("Your cards are: ")
+        print("\n[THIS IS {}'S TURN ] Your cards are: ".format(self.name))
         m=1
         for card in self.cards:
             if card.out_of_game==False:
-                print("{}. {} you have the card {}".format(m,self.name,card))
+                print("{}. {}".format(m,card))
             m+=1
         
         if self.status=="Playing" or self.status=="Challenging":
@@ -54,20 +54,20 @@ class Player:
         print("{} you ought to resign a card".format(self.__name))
         self.status="Playing"
         self.see_cards()
-        card_resigned=int(input("press the number of the card you want to resign: "))
+        card_resigned=int(input("Press the NUMBER of the card you want to resign: "))
         self.cards[card_resigned-1].out_of_game=True
         self.status=None
         Console.clear()
     
     def money_to_play(self,choice):
         if (self.__coins==10 and choice !=3):
-            print("Sorry you have 10 coins you ought to make a hit")
+            print("You have 10 COINS. You MUST CHOOSE HIT")
             return 0
         if (self.__coins<7 and choice ==3):
-            print("Sorry you don´t have enough coins to make a hit")
+            print("NOT ENOUGH COINS for Hit. Try again.")
             return 0
         if (self.__coins<3 and choice ==5):
-            print("Sorry you don´t have enough coins to murder")
+            print("NOT ENOUGH COINS for Murder. Try again.")
             return 0
         return 1
         

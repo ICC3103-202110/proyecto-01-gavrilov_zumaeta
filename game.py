@@ -24,17 +24,22 @@ class Game:
         cls.__number_of_players=len(cls.__players)
         #logica que reste uno por cada vez que se queden sin cartas y reconozca cuando queda solo un jugador
 
-        #we let everybody see their cards by turns
-        
+        #We let everybody see their cards by turns
+        print("\nOn this first round every player will get to SEE THEIR CARDS.")
         for player in cls.__players:
             player.status="Playing"
-            print("pass computer to {}".format(player))
-            input("{} press any key to see your cards".format(player))
+            print("PASS computer to {}".format(player))
+            input("PLAYER {} PRESS ANY KEY to see your cards".format(player))
             player.see_cards()
-            input("press any key to continue")
+            input("PRESS ANY KEY to continue")
             Console.clear()
             player.status=None
         
+        #To not begin first round inmediately:
+        #player = cls.__players[0] ?maybe
+        #print("PASS computer to {}".format(player))
+        #print("NOW THE GAME BEGINS:")
+
         while len(cls.__players)>1:
             for player in cls.__players:
                 if (player==cls.__current_player):
@@ -43,7 +48,7 @@ class Game:
                 cls.__player_play()
                 cls.__remove_player()
         
-        print("{} there ara no more players left, You won!!".format(cls.__players[0]))
+        print("{} there are NO MORE PLAYERS left, YOU WON!!".format(cls.__players[0]))
 
     @classmethod
     def __player_play(cls):
@@ -59,7 +64,7 @@ class Game:
         action=Action()
         action.action_status=cls.__list_of_actions[choice-1]
         action.action_succes=True
-        input("Press any key and pass the computer to the other players")
+        input("PRESS ANY KEY AND PASS the computer to the other players")
         Console.clear()
         Console.show_last_action(cls.__current_player.name,action.action_status)
         if (choice!=1 and choice!=2 and choice!=3):
@@ -76,13 +81,15 @@ class Game:
             print("Now {} gets to complete their action".format(cls.__current_player))
             action.master_of_actions(choice,cls.__current_player,cls.__players,cls.__table_deck.deck)
         cls.__current_player.status=None
-        input("End of turn press any key to continue")
+        input("END OF TURN, PRESS ANY KEY to continue")
         
 
     @classmethod
     def __see_coins_and_cards(cls):
+        print("----------------------------------------")
         for i in cls.__players:
             Console.coins_and_cards_display(i.name,i.coins,i.cards[0],i.cards[1])
+        print("----------------------------------------")
 
 
     @classmethod
@@ -90,8 +97,10 @@ class Game:
         number_players=int(input("Please enter number of players: \n"))
         if number_players<cls.MIN_NUMBER_PLAYERS:
             number_players=3
+            print("Min. Nº of Players is 3! Go find some more people.")
         if number_players>cls.MAX_NUMBER_PLAYERS:
             number_players=4
+            print("Max. Nº of Players is 4! Choose who stays.")
         for i in list(range(number_players)):
             name=input("Player {} enter your name: ".format(i+1))
             cls.__players.append(Player(name,i+1))
@@ -102,7 +111,7 @@ class Game:
 
     @classmethod
     def __challenge(cls,player,action):
-        print("Does anybody want to defy this action?")
+        print("Does anybody want to DEFY this action?")
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":
@@ -114,7 +123,7 @@ class Game:
             return 0
         shuffle(challengers)
         challenger=challengers[0]
-        print("{} you have been challenged by {}".format(player,challenger))
+        print("{} you have been CHALLENGED by {}".format(player,challenger))
         win=False
         influence=cls.__dic_of_influences[action.action_status]
         
@@ -128,17 +137,17 @@ class Game:
                     cls.__table_deck.assign_cards_player(player,1,cls.__table_deck.deck)
         
         if win==True:
-            print("{} you have won the challenge".format(player))
-            input("press any key to see your new card")
+            print("{} you have WON the challenge".format(player))
+            input("press ANY KEY to see your new card")
             player.see_cards()
-            input("press any key to continue and pass computer to {}".format(challenger))
+            input("press ANY KEY to continue AND PASS computer to {}".format(challenger))
             Console.clear()
             challenger.resign_card()
             action.action_succes=True
         else:
             print("{} you have lost the challenge".format(player))
             action.action_succes=False
-            input("press any key to continue")
+            input("press ANY KEY to CONTINUE")
             Console.clear()
             player.resign_card()
 
@@ -146,13 +155,13 @@ class Game:
     @classmethod
     def __counterattack(cls,player,action):
         counterattacks={"Foreign Help":["Duke"],"Murder":["Countess"], "Extortion":["Captain","Ambassador"]}
-        print("You can counterattack {}'s action if you have influence on: ".format(player))
+        print("You can COUNTERATTACK {}'s action if you have influence on: ".format(player))
         for element in counterattacks[action]:
             print(element)
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":
-                add=input("{} press 1 if you want to counterattack, press any other key otherwise ".format(other_player))
+                add=input("{} PRESS 1 if you want to COUNTERATTACK, press any other key otherwise ".format(other_player))
                 if add=="1":
                     challengers.append(other_player)
         if len(challengers)==0:
@@ -160,9 +169,9 @@ class Game:
             return 0
         shuffle(challengers)
         challenger=challengers[0]
-        print("{} you have been counterattacked by {}".format(player,challenger))
+        print("{} you have been COUNTERATTACKED by {}".format(player,challenger))
         if action=="Extortion":
-            num_influence=int(input("{} select 0 if you have influence on the captain and 1 if you have influence over the Ambassador: ".format(challenger)))
+            num_influence=int(input("{} SELECT 0 if you have influence on the CAPTAIN / SELECT 1 if you have influence over the AMBASSADOR: ".format(challenger)))
             influence=counterattacks[action][num_influence]
         else: 
             influence=counterattacks[action][0]
