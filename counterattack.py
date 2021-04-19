@@ -6,7 +6,6 @@ class Counterattack:
     def __init__(self,adversary,character):
         self.__adversary=adversary
         self.__character=character
-        self.__succes=True
 
     @property
     def adversary(self):

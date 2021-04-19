@@ -23,7 +23,7 @@ class Action:
         self.__action_succes=value
 
 
-    #public method
+    #public methods
     def master_of_actions(self,choice,player,list_of_players,deck):
         if choice==1:
             self.income(player)

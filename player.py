@@ -58,7 +58,7 @@ class Player:
         self.cards[card_resigned-1].out_of_game=True
         self.status=None
         Console.clear()
-    
+    #checks if you have the money to complete a certain action
     def money_to_play(self,choice):
         if (self.__coins==10 and choice !=3):
             print("You have 10 COINS. You MUST CHOOSE HIT")

@@ -35,9 +35,8 @@ class Game:
             player.status=None
         
         #To not begin first round inmediately:
-        #player = cls.__players[0] ?maybe
-        #print("PASS computer to {}".format(player))
-        #print("NOW THE GAME BEGINS:")
+        print("Pass the computer to {}".format(cls.__players[0]))
+        input("NOW THE GAME BEGINS: press any key")
 
         while len(cls.__players)>1:
             for player in cls.__players:
@@ -52,8 +51,8 @@ class Game:
     @classmethod
     def __player_play(cls):
         Console.clear()
+        print("It's {}'s turn!".format(cls.__current_player))
         cls.__current_player.status="Playing"
-        cls.__see_coins_and_cards()
         cls.__current_player.see_cards()
         cls.__see_coins_and_cards()
         flag=0

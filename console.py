@@ -8,7 +8,7 @@ class Console:
         print("{:<20}{:>20}".format(" 2.Foreign Help", " 5.Assassin-Murder"))
         print("{:<20}{:>22}".format(" 3.Hit", "  6.Captain-Extortion"))
         print("{:>42}".format(" 7.Ambassador-Change"))
-        #print(" – if you ever wish to exit, input EXIT -")
+        
         return int(input("\n{} choose the NUMBER of the Action you want to make:".format(name)))
 
     @staticmethod

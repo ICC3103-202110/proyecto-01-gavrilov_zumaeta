@@ -22,6 +22,7 @@ class Cards:
     @out_of_game.setter
     def out_of_game(self,value):
         self.__out_of_game=value
+        
 #the card will only show itself on the table if the player lost its influence
     def __str__(self):
         if (self.__out_of_game==True):
