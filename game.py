@@ -22,7 +22,6 @@ class Game:
         for player in cls.__players:
             cls.__table_deck.assign_cards_player(player,2,cls.__table_deck.deck)
         cls.__number_of_players=len(cls.__players)
-        #logica que reste uno por cada vez que se queden sin cartas y reconozca cuando queda solo un jugador
 
         #We let everybody see their cards by turns
         print("\nOn this first round every player will get to SEE THEIR CARDS.")
@@ -56,6 +55,7 @@ class Game:
         cls.__current_player.status="Playing"
         cls.__see_coins_and_cards()
         cls.__current_player.see_cards()
+        cls.__see_coins_and_cards()
         flag=0
         while (flag==0):
             choice=Console.player_menu(cls.__current_player.name)
@@ -64,9 +64,12 @@ class Game:
         action=Action()
         action.action_status=cls.__list_of_actions[choice-1]
         action.action_succes=True
+        action.activity_log=[]
         input("PRESS ANY KEY AND PASS the computer to the other players")
         Console.clear()
         Console.show_last_action(cls.__current_player.name,action.action_status)
+        action.activity_log.append("{} chose the action {}".format(cls.__current_player,action.action_status))
+
         if (choice!=1 and choice!=2 and choice!=3):
             cls.__challenge(cls.__current_player,action)
         cls.__remove_player()
@@ -74,13 +77,18 @@ class Game:
             if (choice==2 or choice==5 or choice==6):
                 result=cls.__counterattack(cls.__current_player,action.action_status)
                 if result!=0:
+                    action.activity_log.append("{} counterattacked {}".format(result[0],cls.__current_player))
                     new_counterattack=Counterattack(result[0],result[1])
                     new_counterattack.defy_counterattack(cls.__players,cls.__current_player,action,cls.__table_deck)
 
         if (action.action_succes==True):
             print("Now {} gets to complete their action".format(cls.__current_player))
+            action.activity_log.append("{} got to complete the action {}".format(cls.__current_player,action.action_status))
             action.master_of_actions(choice,cls.__current_player,cls.__players,cls.__table_deck.deck)
         cls.__current_player.status=None
+        input("Press any key to continue")
+        Console.clear()
+        Console.show_log(cls.__current_player,action.activity_log)
         input("END OF TURN, PRESS ANY KEY to continue")
         
 
@@ -123,6 +131,7 @@ class Game:
             return 0
         shuffle(challengers)
         challenger=challengers[0]
+        action.activity_log.append("{} challenged {}".format(challenger,player))
         print("{} you have been CHALLENGED by {}".format(player,challenger))
         win=False
         influence=cls.__dic_of_influences[action.action_status]
@@ -143,10 +152,12 @@ class Game:
             input("press ANY KEY to continue AND PASS computer to {}".format(challenger))
             Console.clear()
             challenger.resign_card()
+            action.activity_log.append("{} lost the challenge".format(challenger))
             action.action_succes=True
         else:
             print("{} you have lost the challenge".format(player))
             action.action_succes=False
+            action.activity_log.append("{} lost the challenge".format(player))
             input("press ANY KEY to CONTINUE")
             Console.clear()
             player.resign_card()

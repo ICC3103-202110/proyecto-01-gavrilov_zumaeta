@@ -10,7 +10,7 @@ class Deck_of_cards:
     def deck(self):
         return self.__deck
     #private methods
-    
+    #creates a deck of cards with the Cards class
     def __create_deck(self):
         roles=["Duke","Assassin","Captain","Ambassador","Countess"]
         deck=[]

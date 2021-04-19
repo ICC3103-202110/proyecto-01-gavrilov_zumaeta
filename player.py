@@ -35,10 +35,10 @@ class Player:
 
     def see_cards(self):
         if self.status=="Playing" or self.status=="Challenging":
-            for i in range(2):
+            for i in range(len(self.cards)):
                 if self.cards[i].out_of_game==False:
                     self.cards[i].hidden=False
-        print("\n[THIS IS {}'S TURN ] Your cards are: ".format(self.name))
+        print("\n{} Your cards are: ".format(self.name))
         m=1
         for card in self.cards:
             if card.out_of_game==False:
@@ -46,7 +46,7 @@ class Player:
             m+=1
         
         if self.status=="Playing" or self.status=="Challenging":
-            for i in range(2):
+            for i in range(len(self.cards)):
                 if self.cards[i].out_of_game==False:
                     self.cards[i].hidden=True
     

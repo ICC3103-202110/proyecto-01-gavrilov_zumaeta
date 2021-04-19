@@ -23,3 +23,11 @@ class Console:
     def show_last_action(name,action):
         print("Player {} has chosen the action {}".format(name,action))
 
+    @staticmethod
+    def show_log(player,log_list):
+        print("Here is what happend in {}'s turn".format(player))
+        for element in log_list:
+            print(element)
+        print("Now {} has {} coins".format(player,player.coins))
+
+

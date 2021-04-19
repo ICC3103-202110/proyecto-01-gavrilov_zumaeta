@@ -51,12 +51,14 @@ class Counterattack:
             return 0
         shuffle(challengers)
         challenger=challengers[0]
+        action.activity_log.append("{} challenged {}'s counterattack".format(challenger,self.__adversary))
         print("{} you have been CHALLENGED by {}".format(self.__adversary,challenger))
         win=False
         for card in self.adversary.cards:
             if (card.out_of_game==False and card.influence==self.__character):
                 win=True
-                print("{} you have WON the CHALLENGE and get to complete the counterattack".format(self.adversary))
+                print("{} you have WON the CHALLENGE and get to complete the counterattack".format(self.__adversary))
+                action.activity_log.append("{} won challenge and got to complete counterattack".format(self.__adversary))
                 table_deck.deck.append(card)
                 self.__adversary.cards.remove(card)
                 table_deck.assign_cards_player(self.__adversary,1,table_deck.deck)
@@ -71,6 +73,7 @@ class Counterattack:
         
         if win==False:
             print("{} you have LOST the CHALLENGE".format(self.__adversary))
+            action.activity_log.append("{} won the challenge and got to stop the counterattack".format(challenger))
             input("PASS computer to {} AND PRESS ANY KEY to continue".format(self.__adversary))
             Console.clear()
             self.__adversary.resign_card()

@@ -4,6 +4,7 @@ class Action:
     def _init_(self):
         self.__action_status=None
         self.__action_succes=True
+        self.activity_log=[]
 
     @property
     def action_status(self):
@@ -20,6 +21,7 @@ class Action:
     @action_succes.setter
     def action_succes(self,value):
         self.__action_succes=value
+
 
     #public method
     def master_of_actions(self,choice,player,list_of_players,deck):
@@ -144,13 +146,18 @@ class Action:
             picked.append(pick)
         
         
-        if 3 not in picked:
-            deck.append(player.cards[1])
-            player.cards.pop(1)
-        
-        if 2 not in picked:
-            deck.append(player.cards[0])
-            player.cards.pop(0)
+        if number_of_cards==2:
+            if 3 not in picked:
+                deck.append(player.cards[1])
+                player.cards.pop(1)
+            if 2 not in picked:
+                deck.append(player.cards[0])
+                player.cards.pop(0)
+
+        for card in player.cards:
+            if card not in new_cards_player and card.out_of_game==False:
+                deck.append(card)
+                player.cards.remove(card)
         
         for card_2 in new_cards_player:
             if card_2 not in player.cards:
@@ -161,14 +168,9 @@ class Action:
 
         player.see_cards()
 
-    
-
-
-        
 
 
 
-    
 
 
         
