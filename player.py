@@ -70,8 +70,6 @@ class Player:
             print("NOT ENOUGH COINS for Murder. Try again.")
             return 0
         return 1
-        
-
 
     def __str__(self):
         return self.__name

@@ -108,7 +108,7 @@ class Action:
             choose_person[extort_person].coins=-1
             player.coins=1
         else:
-            print("SORRY, this person had no coins")
+            print("SORRY, this person has no coins")
         print("Player {} now has {} coins".format(player.name,player.coins))
         print("Player {} now has {} coins".format(choose_person[extort_person].name,choose_person[extort_person].coins))
 

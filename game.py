@@ -101,16 +101,25 @@ class Game:
 
     @classmethod
     def __set_players(cls):
-        number_players=int(input("Please enter number of players: \n"))
-        if number_players<cls.MIN_NUMBER_PLAYERS:
-            number_players=3
-            print("Min. Nº of Players is 3! Go find some more people.")
-        if number_players>cls.MAX_NUMBER_PLAYERS:
-            number_players=4
-            print("Max. Nº of Players is 4! Choose who stays.")
-        for i in list(range(number_players)):
-            name=input("Player {} enter your name: ".format(i+1))
-            cls.__players.append(Player(name,i+1))
+        number_players=input("Please enter number of players: \n")
+        condition = 0
+        while condition == 0:
+            if number_players.isnumeric() == False:
+                print("NOT VALID. Try with a number")
+                number_players=input("Please enter number of players: \n")
+            else:
+                if int(number_players)<cls.MIN_NUMBER_PLAYERS:
+                    number_players=3
+                    print("Min. Nº of Players is 3! Go find some more people.")
+                    condition = 1
+                elif int(number_players)>cls.MAX_NUMBER_PLAYERS:
+                    number_players=4
+                    print("Max. Nº of Players is 4! Choose who stays.")
+                    condition = 1
+                for i in list(range(int(number_players))):
+                    name=input("Player {} enter your name: ".format(i+1))
+                    cls.__players.append(Player(name,i+1))
+                    condition = 1
 
     @classmethod    
     def __set_deck(cls):
