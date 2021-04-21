@@ -1,20 +1,21 @@
 import os
 class Console:
+
     @staticmethod
     def player_menu(name):
         print("\nHere is the menu of actions\n")
         print(": . _ . : . _ . : . _ . : . _ . : . _ . :")
         print("{:<20}{:>20}".format("General Actions:","Character Actions:"))
-        print("{:<20}{:>16}".format(" 1.Income"," 4.Duch-Taxes "))
-        print("{:<20}{:>20}".format(" 2.Foreign Help", " 5.Assassin-Murder"))
-        print("{:<20}{:>22}".format(" 3.Hit", "  6.Captain-Extortion"))
-        print("{:>42}".format(" 7.Ambassador-Change"))
+        print("{:<20}{:>14}".format(" 1.Income"," 4.Duke: Tax"))
+        print("{:<20}{:>21}".format(" 2.Foreign Help", " 5.Assassin: Murder"))
+        print("{:<20}{:>23}".format(" 3.Hit)", "  6.Captain: Extortion"))
+        print("{:>45}".format(" 7.Ambassador: Exchange"))
         print(": . _ . : . _ . : . _ . : . _ . : . _ . :")
         
         value = input("\n{} choose the NUMBER of the Action you want to make:".format(name))
-        while cast(value) == False or (int(value)< 1 or int(value)>7):
+        while value.isnumeric() == False or (int(value)< 1 or int(value)>7):
             print("Your answer is NOT VALID. Try again.")
-            value = input("\n{} NOT VALID. Choose the NUMBER of the Action you want to make:".format(name))
+            value = input("Number of Action:")
         value = int(value)
         return value
 
@@ -28,7 +29,7 @@ class Console:
 
     @staticmethod
     def show_last_action(name,action):
-        print("Player {} has chosen the action {}".format(name,action))
+        print("• Player {} has chosen the action {}".format(name,action))
 
     @staticmethod
     def show_log(player,log_list):
@@ -38,12 +39,21 @@ class Console:
             print("• {}".format(element))
         print("Now {} has {} coins".format(player,player.coins))
 
-    def cast(number):
-        try:
-            number = int(number)
-            return number
-        except ValueError:
-            print ("NUMBER IS NOT VALID. Try again!")
-            return False
+    @staticmethod
+    def cast(start,stop):
+        number= input("Enter your number:")
+        flag = True
+        while flag:
+            if not number.isnumeric():
+                print ("NUMBER IS NOT VALID. Try again!")
+                number= input("Enter your number:")
+            else:
+                number = int(number)
+                if number not in range(start,stop+1):
+                    print("NUMBER IS NOT VALID. Try again!")
+                    number= input("Enter your number:")
+                else:
+                    flag = False
+                    return number
 
 

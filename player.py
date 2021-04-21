@@ -54,7 +54,8 @@ class Player:
         print("{} you ought to resign a card".format(self.__name))
         self.status="Playing"
         self.see_cards()
-        card_resigned=int(input("Press the NUMBER of the card you want to resign: "))
+        print("Press the NUMBER of the card you want to resign: ")
+        card_resigned = Console.cast(0,len(self.cards))
         self.cards[card_resigned-1].out_of_game=True
         self.status=None
         Console.clear()

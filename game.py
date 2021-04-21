@@ -36,7 +36,7 @@ class Game:
         
         #To not begin first round inmediately:
         print("Pass the computer to {}".format(cls.__players[0]))
-        input("NOW THE GAME BEGINS: press any key")
+        input("NOW THE GAME BEGINS: press enter ")
 
         while len(cls.__players)>1:
             for player in cls.__players:
@@ -64,7 +64,7 @@ class Game:
         action.action_status=cls.__list_of_actions[choice-1]
         action.action_succes=True
         action.activity_log=[]
-        input("PRESS ANY KEY AND PASS the computer to the other players")
+        input("PRESS ANY KEY and PASS the computer to the other players")
         Console.clear()
         Console.show_last_action(cls.__current_player.name,action.action_status)
         action.activity_log.append("{} chose the action {}".format(cls.__current_player,action.action_status))
@@ -85,10 +85,10 @@ class Game:
             action.activity_log.append("{} got to complete the action {}".format(cls.__current_player,action.action_status))
             action.master_of_actions(choice,cls.__current_player,cls.__players,cls.__table_deck.deck)
         cls.__current_player.status=None
-        input("Press any key to continue")
+        input("Press ENTER to continue")
         Console.clear()
         Console.show_log(cls.__current_player,action.activity_log)
-        input("END OF TURN, PRESS ANY KEY to continue")
+        input("END OF TURN, PRESS ENTER to continue")
         
 
     @classmethod
@@ -101,25 +101,17 @@ class Game:
 
     @classmethod
     def __set_players(cls):
-        number_players=input("Please enter number of players: \n")
-        condition = 0
-        while condition == 0:
-            if number_players.isnumeric() == False:
-                print("NOT VALID. Try with a number")
-                number_players=input("Please enter number of players: \n")
-            else:
-                if int(number_players)<cls.MIN_NUMBER_PLAYERS:
-                    number_players=3
-                    print("Min. Nº of Players is 3! Go find some more people.")
-                    condition = 1
-                elif int(number_players)>cls.MAX_NUMBER_PLAYERS:
-                    number_players=4
-                    print("Max. Nº of Players is 4! Choose who stays.")
-                    condition = 1
-                for i in list(range(int(number_players))):
-                    name=input("Player {} enter your name: ".format(i+1))
-                    cls.__players.append(Player(name,i+1))
-                    condition = 1
+        print("Please enter NUMBER of players (3 or 4): \n")
+        number_players = Console.cast(3,4)
+        #if number_players<cls.MIN_NUMBER_PLAYERS:
+         #   number_players=3
+         #   print("Min. Nº of Players is 3! Go find some more people.")
+        #elif number_players>cls.MAX_NUMBER_PLAYERS:
+         #   number_players=4
+          #  print("Max. Nº of Players is 4! Choose who stays.")
+        for i in list(range(number_players)):
+            name=input("Player {} enter your name: ".format(i+1))
+            cls.__players.append(Player(name,i+1))
 
     @classmethod    
     def __set_deck(cls):
@@ -131,7 +123,7 @@ class Game:
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":
-                add=input("{} press 1 if you want to challenge, press any other key otherwise ".format(other_player))
+                add=input("{} press 1 if you want to challenge, press enter otherwise ".format(other_player))
                 if add=="1":
                     challengers.append(other_player)
         if len(challengers)==0:
@@ -174,13 +166,13 @@ class Game:
     @classmethod
     def __counterattack(cls,player,action):
         counterattacks={"Foreign Help":["Duke"],"Murder":["Countess"], "Extortion":["Captain","Ambassador"]}
-        print("You can COUNTERATTACK {}'s action if you have influence on: ".format(player))
+        print("PLAYERS can COUNTERATTACK {}'s action if they have influence on: ".format(player))
         for element in counterattacks[action]:
             print(element)
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":
-                add=input("{} PRESS 1 if you want to COUNTERATTACK, press any other key otherwise ".format(other_player))
+                add=input("{} PRESS 1 if you want to COUNTERATTACK, press enter otherwise ".format(other_player))
                 if add=="1":
                     challengers.append(other_player)
         if len(challengers)==0:
@@ -190,7 +182,8 @@ class Game:
         challenger=challengers[0]
         print("{} you have been COUNTERATTACKED by {}".format(player,challenger))
         if action=="Extortion":
-            num_influence=int(input("{} SELECT 0 if you have influence on the CAPTAIN / SELECT 1 if you have influence over the AMBASSADOR: ".format(challenger)))
+            print("{} SELECT 0 if you have influence on the CAPTAIN / SELECT 1 if you have influence over the AMBASSADOR: ".format(challenger))
+            num_influence = Console.cast(0,1)
             influence=counterattacks[action][num_influence]
         else: 
             influence=counterattacks[action][0]
