@@ -37,7 +37,7 @@ class Console:
         print("Here is what happend in {}'s turn".format(player))
         for element in log_list:
             print("• {}".format(element))
-        print("Now {} has {} coins".format(player,player.coins))
+        print("• Now {} has {} coins".format(player,player.coins))
 
     @staticmethod
     def cast(start,stop):

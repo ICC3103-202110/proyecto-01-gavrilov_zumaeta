@@ -127,7 +127,7 @@ class Game:
         shuffle(challengers)
         challenger=challengers[0]
         action.activity_log.append("{} CHALLENGED {}".format(challenger,player))
-        print("–– {} you have been CHALLENGED by {} ––".format(player,challenger))
+        print("• {} you have been CHALLENGED by {} •".format(player,challenger))
         win=False
         influence=cls.__dic_of_influences[action.action_status]
         
@@ -150,7 +150,7 @@ class Game:
             action.activity_log.append("{} lost the challenge".format(challenger))
             action.action_succes=True
         else:
-            print("– {} you have LOST the challenge –".format(player))
+            print("• {} you have LOST the challenge •".format(player))
             action.action_succes=False
             action.activity_log.append("{} lost the challenge".format(player))
             input("press ANY KEY to CONTINUE")

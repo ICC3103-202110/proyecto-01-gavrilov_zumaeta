@@ -133,7 +133,7 @@ class Action:
                 temporary_cards.append(card)
         print("You get to keep {} cards out of these: ".format(number_of_cards))
         for num,element in enumerate(temporary_cards):
-            print("{} to keep {}".format(num,element))
+            print("- {} to keep {}".format(num,element))
         
         new_cards_player=[]
         picked=[]
