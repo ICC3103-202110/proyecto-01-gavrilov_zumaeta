@@ -115,19 +115,20 @@ class Game:
     @classmethod
     def __challenge(cls,player,action):
         print("• Does anybody want to DEFY this action? •")
+        print("(Players get to counterattack after choosing to defy or not)")
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":
-                add=input("-> {} press 1 if you want to challenge, press enter otherwise ".format(other_player))
+                add=input("-> {} press 1 if you want to CHALLENGE, press enter otherwise ".format(other_player))
                 if add=="1":
                     challengers.append(other_player)
         if len(challengers)==0:
-            print("\nNOBODY CHALLENGED YOU!")
+            print("\n– NOBODY CHALLENGED YOU! –\n")
             return 0
         shuffle(challengers)
         challenger=challengers[0]
         action.activity_log.append("{} CHALLENGED {}".format(challenger,player))
-        print("!!! {} you have been CHALLENGED by {} !!!".format(player,challenger))
+        print("*** {} you have been CHALLENGED by {} ***".format(player,challenger))
         win=False
         influence=cls.__dic_of_influences[action.action_status]
         
@@ -141,7 +142,7 @@ class Game:
                     cls.__table_deck.assign_cards_player(player,1,cls.__table_deck.deck)
         
         if win==True:
-            print("{} you have WON the challenge".format(player))
+            print("!! {} you have WON the challenge !!".format(player))
             input("press ANY KEY to see your new card")
             player.see_cards()
             input("press ANY KEY to continue AND PASS computer to {}".format(challenger))
@@ -150,7 +151,7 @@ class Game:
             action.activity_log.append("{} lost the challenge".format(challenger))
             action.action_succes=True
         else:
-            print("{} you have lost the challenge".format(player))
+            print(":( {} you have LOST the challenge :(".format(player))
             action.action_succes=False
             action.activity_log.append("{} lost the challenge".format(player))
             input("press ANY KEY to CONTINUE")
@@ -163,7 +164,7 @@ class Game:
         counterattacks={"Foreign Help":["Duke"],"Murder":["Countess"], "Extortion":["Captain","Ambassador"]}
         print("PLAYERS can COUNTERATTACK {}'s action if they have influence on: ".format(player))
         for element in counterattacks[action]:
-            print(element)
+            print("-> {}".format(element))
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":

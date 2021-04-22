@@ -36,7 +36,7 @@ class Counterattack:
             self.block_stealing_help(player)
     
     def defy_counterattack(self,list_of_players,player,action,table_deck):
-        print("Does anybody want to DEFY this COUNTERATTACK?")
+        print("\nDoes anybody want to DEFY this COUNTERATTACK?")
         challengers=[]
         for other_player in list_of_players:
             if other_player.status!="Challenging":

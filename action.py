@@ -103,7 +103,7 @@ class Action:
                 counter+=1
 
         print("Enter the NUMBER of the PERSON you want to EXTORT: ")
-        extort_perdon= Console.cast(0,counter)
+        extort_person= Console.cast(0,counter)
         if choose_person[extort_person].coins>=2:
             choose_person[extort_person].coins=-2
             player.coins=2
