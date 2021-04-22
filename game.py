@@ -53,10 +53,10 @@ class Game:
         Console.clear()
         print("It's {}'s turn!".format(cls.__current_player))
         cls.__current_player.status="Playing"
-        cls.__current_player.see_cards()
-        cls.__see_coins_and_cards()
+        cls.__current_player.see_cards_option()
         flag=0
         while (flag==0):
+            cls.__see_coins_and_cards()
             choice=Console.player_menu(cls.__current_player.name)
             flag= cls.__current_player.money_to_play(choice)
 
@@ -81,7 +81,7 @@ class Game:
                     new_counterattack.defy_counterattack(cls.__players,cls.__current_player,action,cls.__table_deck)
 
         if (action.action_succes==True):
-            print("Now {} gets to complete their action".format(cls.__current_player))
+            print(". : Now {} gets to complete their action : .".format(cls.__current_player))
             action.activity_log.append("{} got to complete the action {}".format(cls.__current_player,action.action_status))
             action.master_of_actions(choice,cls.__current_player,cls.__players,cls.__table_deck.deck)
         cls.__current_player.status=None
@@ -93,6 +93,7 @@ class Game:
 
     @classmethod
     def __see_coins_and_cards(cls):
+        print("\nGAME STATUS: [ {}'s turn ]".format(cls.__current_player))
         print("----------------------------------------")
         for i in cls.__players:
             Console.coins_and_cards_display(i.name,i.coins,i.cards[0],i.cards[1])
@@ -103,12 +104,6 @@ class Game:
     def __set_players(cls):
         print("Please enter NUMBER of players (3 or 4): \n")
         number_players = Console.cast(3,4)
-        #if number_players<cls.MIN_NUMBER_PLAYERS:
-         #   number_players=3
-         #   print("Min. Nº of Players is 3! Go find some more people.")
-        #elif number_players>cls.MAX_NUMBER_PLAYERS:
-         #   number_players=4
-          #  print("Max. Nº of Players is 4! Choose who stays.")
         for i in list(range(number_players)):
             name=input("Player {} enter your name: ".format(i+1))
             cls.__players.append(Player(name,i+1))
@@ -119,20 +114,20 @@ class Game:
 
     @classmethod
     def __challenge(cls,player,action):
-        print("Does anybody want to DEFY this action?")
+        print("• Does anybody want to DEFY this action? •")
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":
-                add=input("{} press 1 if you want to challenge, press enter otherwise ".format(other_player))
+                add=input("-> {} press 1 if you want to challenge, press enter otherwise ".format(other_player))
                 if add=="1":
                     challengers.append(other_player)
         if len(challengers)==0:
-            print("Nobody challenged you")
+            print("\nNOBODY CHALLENGED YOU!")
             return 0
         shuffle(challengers)
         challenger=challengers[0]
-        action.activity_log.append("{} challenged {}".format(challenger,player))
-        print("{} you have been CHALLENGED by {}".format(player,challenger))
+        action.activity_log.append("{} CHALLENGED {}".format(challenger,player))
+        print("!!! {} you have been CHALLENGED by {} !!!".format(player,challenger))
         win=False
         influence=cls.__dic_of_influences[action.action_status]
         
@@ -176,7 +171,7 @@ class Game:
                 if add=="1":
                     challengers.append(other_player)
         if len(challengers)==0:
-            print("Nobody counterattacked you")
+            print("\n NOBODY COUNTERATTACKED you")
             return 0
         shuffle(challengers)
         challenger=challengers[0]

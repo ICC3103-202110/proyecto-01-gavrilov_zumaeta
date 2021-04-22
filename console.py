@@ -8,7 +8,7 @@ class Console:
         print("{:<20}{:>20}".format("General Actions:","Character Actions:"))
         print("{:<20}{:>14}".format(" 1.Income"," 4.Duke: Tax"))
         print("{:<20}{:>21}".format(" 2.Foreign Help", " 5.Assassin: Murder"))
-        print("{:<20}{:>23}".format(" 3.Hit)", "  6.Captain: Extortion"))
+        print("{:<20}{:>23}".format(" 3.Hit (Coup)", "  6.Captain: Extortion"))
         print("{:>45}".format(" 7.Ambassador: Exchange"))
         print(": . _ . : . _ . : . _ . : . _ . : . _ . :")
         
@@ -29,7 +29,7 @@ class Console:
 
     @staticmethod
     def show_last_action(name,action):
-        print("• Player {} has chosen the action {}".format(name,action))
+        print("• Player {} has chosen the action {} •".format(name,action))
 
     @staticmethod
     def show_log(player,log_list):
