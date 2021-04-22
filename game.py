@@ -79,7 +79,8 @@ class Game:
                     action.activity_log.append("{} counterattacked {}".format(result[0],cls.__current_player))
                     new_counterattack=Counterattack(result[0],result[1])
                     new_counterattack.defy_counterattack(cls.__players,cls.__current_player,action,cls.__table_deck)
-
+                    
+        cls.__remove_player()
         if (action.action_succes==True):
             print(". : Now {} gets to complete their action : .".format(cls.__current_player))
             action.activity_log.append("{} got to complete the action {}".format(cls.__current_player,action.action_status))

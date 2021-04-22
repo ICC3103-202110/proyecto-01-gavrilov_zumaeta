@@ -45,6 +45,10 @@ class Action:
         print("Player {} now has {} coins".format(player.name,player.coins))
     
     def hit (self,player,list_of_players):
+        if len(list_of_players)==1:
+            print("SORRY there are no other players to HIT")
+            return 0
+
         player.coins=-7
         choose_person=[]
         counter=0
@@ -53,9 +57,10 @@ class Action:
                 choose_person.append(person)
                 print("You can take a HIT on {} by pressing {}".format(person,counter))
                 counter+=1
-
         print("Enter the NUMBER of the person you want to hit: ")
         hit_person = Console.cast(0,counter)
+
+
         print("PASS the computer to {}".format(choose_person[hit_person].name))
         input("PRESS ANY KEY to continue")
         Console.clear()
@@ -70,9 +75,10 @@ class Action:
         print("Player {} now has {} coins".format(player.name,player.coins))
     
     def murder(self,player,list_of_players):
-        if len(list_of_players)==0:
-            print("SORRY there is no other player")
+        if len(list_of_players)==1:
+            print("SORRY there are no other players with influences to murder")
             return 0
+
         player.coins=-3
         choose_person=[]
         counter=0
@@ -84,9 +90,7 @@ class Action:
 
         print("Enter the number of the person's influence you want to murder: ")
         murder_person = Console.cast(0,counter)
-        if len(choose_person[murder_person].cards)==0:
-            print("SORRY this person no longer has cards")
-            return 0
+
         print("PASS the computer to {}".format(choose_person[murder_person].name))
         input("PRESS ANY KEY to continue")
         Console.clear()
@@ -94,6 +98,10 @@ class Action:
         print("Player {} now has {} coins".format(player.name,player.coins))
     
     def extortion(self,player,list_of_players):
+        if len(list_of_players)==1:
+            print("SORRY there are no other players to extort")
+            return 0
+
         choose_person=[]
         counter=0
         for person in (list_of_players):
@@ -104,6 +112,7 @@ class Action:
 
         print("Enter the NUMBER of the PERSON you want to EXTORT: ")
         extort_person= Console.cast(0,counter)
+
         if choose_person[extort_person].coins>=2:
             choose_person[extort_person].coins=-2
             player.coins=2

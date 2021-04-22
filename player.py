@@ -74,7 +74,7 @@ class Player:
         Console.clear()
     #checks if you have the money to complete a certain action
     def money_to_play(self,choice):
-        if (self.__coins==10 and choice !=3):
+        if (self.__coins>=10 and choice !=3):
             print("You have 10 COINS. You MUST CHOOSE HIT")
             return 0
         if (self.__coins<7 and choice ==3):
