@@ -115,7 +115,6 @@ class Game:
     @classmethod
     def __challenge(cls,player,action):
         print("• Does anybody want to DEFY this action? •")
-        print("(Players get to counterattack after choosing to defy or not)")
         challengers=[]
         for other_player in cls.__players:
             if other_player.status!="Playing":
